@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import 'intl-tel-input/build/css/intlTelInput.css';
+
+.iti {
+  width: 100%;
+}
+
+.iti__flag-container {
+  z-index: 1000;
+}
+
+.fancy-input {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white shadow;
+  }
