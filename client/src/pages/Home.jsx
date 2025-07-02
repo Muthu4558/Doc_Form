@@ -86,8 +86,8 @@ const EnquiryForm = () => {
         </h1>
         <form className="space-y-10 md:space-y-12" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <input type="text" name="clinicName" className="fancy-input" placeholder="Clinic Name *" required value={form.fullName} onChange={handleChange} />
-            <input type="text" name="spocName" className="fancy-input" placeholder="Spoc Name *" required value={form.fullName} onChange={handleChange} />
+            <input type="text" name="clinicName" className="fancy-input" placeholder="Clinic Name *" required value={form.clinicName} onChange={handleChange} />
+            <input type="text" name="spocName" className="fancy-input" placeholder="Spoc Name *" required value={form.spocName} onChange={handleChange} />
             <input type="tel" name="mobile" className="fancy-input" placeholder="Mobile Number *" required value={form.mobile} onChange={handleChange} />
             <input type="email" name="email" className="fancy-input" placeholder="Email *" required value={form.email} onChange={handleChange} />
             <input type="text" name="city" className="fancy-input" placeholder="City *" required value={form.city} onChange={handleChange} />
@@ -135,10 +135,10 @@ const EnquiryForm = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input type="date" name="preferredDate" className="fancy-input" value={form.preferredDate} onChange={handleChange} />
             <input type="time" name="preferredTime" className="fancy-input" value={form.preferredTime} onChange={handleChange} />
-          </div>
+          </div> */}
 
           <textarea name="notes" className="fancy-input h-24" placeholder="Anything else you’d like us to know?" value={form.notes} onChange={handleChange}></textarea>
 

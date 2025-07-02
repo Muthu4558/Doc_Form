@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 
 const clinicEnquirySchema = new mongoose.Schema({
-  fullName: String,
+  clinicName: String,
+  spocName: String,
   mobile: String,
   email: String,
   city: String,
@@ -11,8 +12,8 @@ const clinicEnquirySchema = new mongoose.Schema({
   usesSoftware: String,
   softwareName: String,
   expectedFeatures: [String],
-  preferredDate: String,
-  preferredTime: String,
+  // preferredDate: String,
+  // preferredTime: String,
   notes: String
 }, { timestamps: true });
 

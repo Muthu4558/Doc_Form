@@ -20,7 +20,8 @@ const AdminClinic = () => {
           <thead className="bg-teal-600 text-white">
             <tr>
               <th className="px-4 py-2">#</th>
-              <th className="px-4 py-2">Name</th>
+              <th className="px-4 py-2">Clinic Name</th>
+              <th className="px-4 py-2">Spoc Name</th>
               <th className="px-4 py-2">Contact</th>
               <th className="px-4 py-2">City/State</th>
               <th className="px-4 py-2">Specializations</th>
@@ -35,7 +36,8 @@ const AdminClinic = () => {
             {entries.map((e, i) => (
               <tr key={e._id} className="hover:bg-teal-50">
                 <td className="px-4 py-2 font-bold text-gray-600">{i + 1}</td>
-                <td className="px-4 py-2">{e.fullName}</td>
+                <td className="px-4 py-2">{e.clinicName}</td>
+                <td className="px-4 py-2">{e.spocName}</td>
                 <td className="px-4 py-2">{e.mobile}<br/>{e.email}</td>
                 <td className="px-4 py-2">{e.city}, {e.state}</td>
                 <td className="px-4 py-2">{e.specialization.join(', ')}</td>
