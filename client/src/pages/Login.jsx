@@ -10,7 +10,7 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (email === 'adminnri@gmail.com' && password === 'admin123') {
+    if (email === 'admindoc@gmail.com' && password === 'admin123') {
       localStorage.setItem('isLoggedIn', 'true');
       toast.success('Login Successful! 🎉');
       setTimeout(() => navigate('/admin'), 1000); // delay for toast visibility
