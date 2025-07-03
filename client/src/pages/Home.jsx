@@ -20,12 +20,14 @@ const features = [
 
 const EnquiryForm = () => {
   const [form, setForm] = useState({
-    fullName: '',
+    clinicName: '',
+    spocName: '',
     mobile: '',
     email: '',
     city: '',
     state: '',
     specialization: [],
+    otherSpecialization: '',
     clinicType: '',
     usesSoftware: 'No',
     softwareName: '',
@@ -56,10 +58,18 @@ const EnquiryForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const submissionData = {
+      ...form,
+      specialization: form.specialization.includes('Other (please specify)') && form.otherSpecialization
+        ? [...form.specialization.filter(sp => sp !== 'Other (please specify)'), form.otherSpecialization]
+        : form.specialization
+    };
+
     const res = await fetch(`${import.meta.env.VITE_APP_BASE_URL}/api/clinic-enquiry/submit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form)
+      body: JSON.stringify(submissionData)
     });
     if (res.ok) {
       setSubmitted(true);
@@ -86,12 +96,15 @@ const EnquiryForm = () => {
         </h1>
         <form className="space-y-10 md:space-y-12" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <input type="text" name="clinicName" className="fancy-input" placeholder="Clinic Name *" required value={form.clinicName} onChange={handleChange} />
-            <input type="text" name="spocName" className="fancy-input" placeholder="Spoc Name *" required value={form.spocName} onChange={handleChange} />
-            <input type="tel" name="mobile" className="fancy-input" placeholder="Mobile Number *" required value={form.mobile} onChange={handleChange} />
-            <input type="email" name="email" className="fancy-input" placeholder="Email *" required value={form.email} onChange={handleChange} />
-            <input type="text" name="city" className="fancy-input" placeholder="City *" required value={form.city} onChange={handleChange} />
-            <input type="text" name="state" className="fancy-input" placeholder="State *" required value={form.state} onChange={handleChange} />
+            <input type="text" name="clinicName" className="fancy-input" placeholder="Clinic Name *" value={form.clinicName} onChange={handleChange} />
+            <input type="text" name="spocName" className="fancy-input" placeholder="Spoc Name *" value={form.spocName} onChange={handleChange} />
+            <div className="relative">
+              {/* <span className="absolute top-2 left-3 text-gray-500">+91</span> */}
+              <input type="tel" name="mobile" className="fancy-input pl-12" placeholder="Mobile Number *" maxLength={10} value={form.mobile} onChange={handleChange} />
+            </div>
+            <input type="email" name="email" className="fancy-input" placeholder="Email *" value={form.email} onChange={handleChange} />
+            <input type="text" name="city" className="fancy-input" placeholder="City *" value={form.city} onChange={handleChange} />
+            <input type="text" name="state" className="fancy-input" placeholder="State *" value={form.state} onChange={handleChange} />
           </div>
 
           <div>
@@ -99,15 +112,29 @@ const EnquiryForm = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
               {specializations.map(sp => (
                 <label key={sp} className="flex items-center gap-2">
-                  <input type="checkbox" checked={form.specialization.includes(sp)} onChange={() => toggleCheckbox('specialization', sp)} /> {sp}
+                  <input
+                    type="checkbox"
+                    checked={form.specialization.includes(sp)}
+                    onChange={() => toggleCheckbox('specialization', sp)}
+                  /> {sp}
                 </label>
               ))}
             </div>
+            {form.specialization.includes('Other (please specify)') && (
+              <input
+                type="text"
+                name="otherSpecialization"
+                className="fancy-input mt-2"
+                placeholder="Please specify other specialization"
+                value={form.otherSpecialization}
+                onChange={handleChange}
+              />
+            )}
           </div>
 
           <div>
             <label className="block font-semibold text-teal-600 mb-1">Clinic Type *</label>
-            <select name="clinicType" className="fancy-input" required value={form.clinicType} onChange={handleChange}>
+            <select name="clinicType" className="fancy-input" value={form.clinicType} onChange={handleChange}>
               <option value="">Select Clinic Type</option>
               {clinicTypes.map(type => <option key={type}>{type}</option>)}
             </select>
@@ -134,11 +161,6 @@ const EnquiryForm = () => {
               ))}
             </div>
           </div>
-
-          {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="date" name="preferredDate" className="fancy-input" value={form.preferredDate} onChange={handleChange} />
-            <input type="time" name="preferredTime" className="fancy-input" value={form.preferredTime} onChange={handleChange} />
-          </div> */}
 
           <textarea name="notes" className="fancy-input h-24" placeholder="Anything else you’d like us to know?" value={form.notes} onChange={handleChange}></textarea>
 

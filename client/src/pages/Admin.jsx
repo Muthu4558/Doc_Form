@@ -28,7 +28,7 @@ const AdminClinic = () => {
               <th className="px-4 py-2">Clinic Type</th>
               <th className="px-4 py-2">Software</th>
               <th className="px-4 py-2">Features</th>
-              <th className="px-4 py-2">Preferred Date/Time</th>
+              {/* <th className="px-4 py-2">Preferred Date/Time</th> */}
               <th className="px-4 py-2">Notes</th>
             </tr>
           </thead>
@@ -44,7 +44,7 @@ const AdminClinic = () => {
                 <td className="px-4 py-2">{e.clinicType}</td>
                 <td className="px-4 py-2">{e.usesSoftware} {e.softwareName ? `(${e.softwareName})` : ''}</td>
                 <td className="px-4 py-2">{e.expectedFeatures.join(', ')}</td>
-                <td className="px-4 py-2">{e.preferredDate} {e.preferredTime}</td>
+                {/* <td className="px-4 py-2">{e.preferredDate} {e.preferredTime}</td> */}
                 <td className="px-4 py-2">{e.notes}</td>
               </tr>
             ))}
