@@ -45,7 +45,20 @@ const EnquiryForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+
+    // Regex patterns
+    const onlyAlphabets = /^[A-Za-z\s]*$/;
+    const onlyNumbers = /^[0-9]*$/;
+
+    // Field-specific validation
+    if (
+      (['clinicName', 'spocName', 'city', 'state'].includes(name) && !onlyAlphabets.test(value)) ||
+      (name === 'mobile' && !onlyNumbers.test(value))
+    ) {
+      return; // Prevent updating state if invalid input
+    }
+
+    setForm({ ...form, [name]: value });
   };
 
   const toggleCheckbox = (field, value) => {
@@ -96,15 +109,15 @@ const EnquiryForm = () => {
         </h1>
         <form className="space-y-10 md:space-y-12" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <input type="text" name="clinicName" className="fancy-input" placeholder="Clinic Name *" value={form.clinicName} onChange={handleChange} />
-            <input type="text" name="spocName" className="fancy-input" placeholder="Spoc Name *" value={form.spocName} onChange={handleChange} />
+            <input type="text" name="clinicName" className="fancy-input" placeholder="Clinic Name *" value={form.clinicName} onChange={handleChange} required />
+            <input type="text" name="spocName" className="fancy-input" placeholder="Spoc Name *" value={form.spocName} onChange={handleChange} required />
             <div className="relative">
               {/* <span className="absolute top-2 left-3 text-gray-500">+91</span> */}
-              <input type="tel" name="mobile" className="fancy-input pl-12" placeholder="Mobile Number *" maxLength={10} value={form.mobile} onChange={handleChange} />
+              <input type="tel" name="mobile" className="fancy-input pl-12" placeholder="Mobile Number *" maxLength={10} value={form.mobile} onChange={handleChange} required />
             </div>
-            <input type="email" name="email" className="fancy-input" placeholder="Email *" value={form.email} onChange={handleChange} />
-            <input type="text" name="city" className="fancy-input" placeholder="City *" value={form.city} onChange={handleChange} />
-            <input type="text" name="state" className="fancy-input" placeholder="State *" value={form.state} onChange={handleChange} />
+            <input type="email" name="email" className="fancy-input" placeholder="Email *" value={form.email} onChange={handleChange} required />
+            <input type="text" name="city" className="fancy-input" placeholder="City *" value={form.city} onChange={handleChange} required />
+            <input type="text" name="state" className="fancy-input" placeholder="State *" value={form.state} onChange={handleChange} required />
           </div>
 
           <div>

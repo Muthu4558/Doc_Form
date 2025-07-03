@@ -12,9 +12,9 @@ const clinicEnquirySchema = new mongoose.Schema({
   usesSoftware: String,
   softwareName: String,
   expectedFeatures: [String],
-  // preferredDate: String,
-  // preferredTime: String,
-  notes: String
+  notes: String,
+  status: { type: String, default: 'Pending' },
+  remark: { type: String, default: '' }
 }, { timestamps: true });
 
 export default mongoose.model('ClinicEnquiry', clinicEnquirySchema);
